@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wc3 DmgScript Maker</title>
+	<style type="text/css">
+		.myTr {
+			height: 50px;
+		}
+	</style>
+</head>
+<body>
+	<table border="0" cellpadding="0" cellspacing="0" width="600px">
+		<tr align="center" class="myTr">
+			<td>Caster Variable</td>
+			<td><input type="text" id="caster"></td>
+			<td></td><td></td>
+		</tr>
+		<tr align="center" class="myTr">
+			<td>Ability Id</td>
+			<td><input type="text" id="skId"></td>
+			<td></td><td></td>
+		</tr>
+		<tr align="center" class="myTr">
+			<td>Base Damage</td>
+			<td><input type="text" id="bDmg1"></td>
+			<td> + </td>
+			<td><input type="text" id="bDmg2"></td>
+			<td>Per Level</td>
+		</tr>
+		<tr align="center" class="myTr">
+			<td>Seconds Damage</td>
+			<td><input type="text" id="sDmg1"></td>
+			<td> + </td>
+			<td><input type="text" id="sDmg2"></td>
+			<td>Per Level</td>
+		</tr>
+		<tr align="center" class="myTr">
+			<td>Status</td>
+			<td>
+				<select id="status">
+					<option value="STR">STR</option>d
+					<option value="AGI">AGI</option>
+					<option value="INT">INT</option>
+				</select>
+			</td>
+			<td> + </td>
+			<td colspan="2"><input type="radio" name="incBonus" checked/> Include Bonus <input type="radio" name="incBonus"/> Not Include</td>
+		</tr>
+		<tr align="center" class="myTr">
+			<td colspan="5"><input type="button" value="Run" onclick="run();"/></td>
+		</tr>
+		<tr align="center" class="myTr">
+			<td colspan="5"><input type="text" id="result" style="width: 100%;"/></td>
+		</tr>
+	</table>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	function getId(id) { return document.getElementById(id); }
+	function getName(name) { return document.getElementsByName(name); }
+	
+	function init() {
+		getId('caster').value = "self";
+		getId('skId').value = "A000";
+		getId('bDmg1').value = "2000";
+		getId('bDmg2').value = "0";
+		getId('sDmg1').value = "10";
+		getId('sDmg2').value = "5";
+	}
+	init();
+	function run() {
+		let dmgPart1, dmgPart2;
+		let caster = getId('caster').value;
+		let skId = getId('skId').value;
+		let bDmg1 = getId('bDmg1').value;
+		let bDmg2 = getId('bDmg2').value;
+		let sDmg1 = getId('sDmg1').value;
+		let sDmg2 = getId('sDmg2').value;
+		let skLvStr = "GetUnitAbilityLevel(" + caster + ", '" + skId + "')";
+		let incBonusStr = (getName('incBonus')[0].checked ? 'true' : 'false');
+		d
+		if (bDmg2 > 0) {
+			dmgPart1 = "(" + bDmg1 + ".00 + (" + skLvStr + " * " + bDmg2 + ")" + ")";
+		}
+		else {dd
+			dmgPart1 = bDmg1 + ".00";
+		}s
+		if (sDmg2 > 0) {
+			dmgPart2 = "(" + sDmg1 + ".00 + (" + skLvStr + " * " + sDmg2 + ")" + ")";
+		}
+		else {
+			dmgPart2 = sDmg1 + ".00";
+		}
+		dmgPart2 = "(" + dmgPart2 + " * GetHero" + getId("status").value + "(" + caster + ", " + incBonusStr + "))";
+
+		getId('result').value = "set dmg = " + dmgPart1 + " + " + dmgPart2;
+	}
+
+	//((1800.00 + (GetUnitAbilityLevel(u[0], skId)*5.00)) + (GetHeroStr(u[0], false) * 5.00))
+
+</script>
