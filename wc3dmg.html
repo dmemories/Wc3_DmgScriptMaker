@@ -80,7 +80,7 @@
 		let sDmg2 = getId('sDmg2').value;
 		let skLvStr = "GetUnitAbilityLevel(" + caster + ", '" + skId + "')";
 		let incBonusStr = (getName('incBonus')[0].checked ? 'true' : 'false');
-		d
+		
 		if (bDmg2 > 0) {
 			dmgPart1 = "(" + bDmg1 + ".00 + (" + skLvStr + " * " + bDmg2 + ")" + ")";
 		}
