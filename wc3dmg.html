@@ -63,7 +63,7 @@
 	
 	function init() {
 		getId('caster').value = "self";
-		getId('skId').value = "A000";
+		getId('skId').value = "skId";
 		getId('bDmg1').value = "2000";
 		getId('bDmg2').value = "0";
 		getId('sDmg1').value = "10";
@@ -88,13 +88,15 @@
 			dmgPart1 = bDmg1 + ".00";
 		}
 		if (sDmg2 > 0) {
-			dmgPart2 = "(" + sDmg1 + ".00 + (" + skLvStr + " * " + sDmg2 + ")" + ")";
+			dmgPart2 = "(" + skLvStr + " * " + sDmg2 + ")";
+		}
+
+		if (sDmg1 > 0) {
+			dmgPart2 = "((" + sDmg1 + ".00 + " + dmgPart2 + ") * GetHero" + getId("status").value + "(" + caster + ", " + incBonusStr + "))";
 		}
 		else {
-			dmgPart2 = sDmg1 + ".00";
+			dmgPart2 = "(" + dmgPart2 + " * GetHero" + getId("status").value + "(" + caster + ", " + incBonusStr + "))";
 		}
-		dmgPart2 = "(" + dmgPart2 + " * GetHero" + getId("status").value + "(" + caster + ", " + incBonusStr + "))";
-
 		getId('result').value = "set dmg = " + dmgPart1 + " + " + dmgPart2;
 	}
 
