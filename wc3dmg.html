@@ -16,8 +16,8 @@
 			<td></td><td></td>
 		</tr>
 		<tr align="center" class="myTr">
-			<td>Ability Id</td>
-			<td><input type="text" id="skId"></td>
+			<td>Ability Variable</td>
+			<td><input type="text" id="skVar"></td>
 			<td></td><td></td>
 		</tr>
 		<tr align="center" class="myTr">
@@ -63,7 +63,7 @@
 	
 	function init() {
 		getId('caster').value = "self";
-		getId('skId').value = "skId";
+		getId('skVar').value = "skId";
 		getId('bDmg1').value = "2000";
 		getId('bDmg2').value = "0";
 		getId('sDmg1').value = "10";
@@ -73,12 +73,12 @@
 	function run() {
 		let dmgPart1, dmgPart2;
 		let caster = getId('caster').value;
-		let skId = getId('skId').value;
+		let skVar = getId('skVar').value;
 		let bDmg1 = getId('bDmg1').value;
 		let bDmg2 = getId('bDmg2').value;
 		let sDmg1 = getId('sDmg1').value;
 		let sDmg2 = getId('sDmg2').value;
-		let skLvStr = "GetUnitAbilityLevel(" + caster + ", '" + skId + "')";
+		let skLvStr = "GetUnitAbilityLevel(" + caster + ", " + skVar + ")";
 		let incBonusStr = (getName('incBonus')[0].checked ? 'true' : 'false');
 		
 		if (bDmg2 > 0) {
